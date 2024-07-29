@@ -6,7 +6,23 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
-mongoose.connect("mongodb://localhost:27017/todo", { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect("mongodb://localhost:27017/todo", { useNewUrlParser: true, useUnifiedTopology: true });
+const uri = "mongodb+srv://Dannyskh70:Danny7871@todo.pmtygbr.mongodb.net/?retryWrites=true&w=majority&appName=Todo";
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Increase timeout to 5 seconds
+    });
+    console.log('MongoDB Connected...');
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+};
+connectDB();
 
 const TodoSchema = new mongoose.Schema({
   text: String,  // Changed from task to text
