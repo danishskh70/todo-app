@@ -1,71 +1,0 @@
-[33mcommit 34810bacdcfd9d1871f9c19742c5309566c091a3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;33mtag: [m[1;33mv2.0.0[m[33m, [m[1;31morigin/master[m[33m)[m
-Author: Danny <danishskh70@gmail.com>
-Date:   Sun Jul 28 19:51:20 2024 +0530
-
-    Major Update in The UI
-
-[1mdiff --git a/server/index.js b/server/index.js[m
-[1mindex bfe9a8c..70ca617 100644[m
-[1m--- a/server/index.js[m
-[1m+++ b/server/index.js[m
-[36m@@ -1,3 +1,4 @@[m
-[32m+[m[32m// server.js[m[41m[m
- const express = require('express');[m
- const mongoose = require('mongoose');[m
- const cors = require('cors');[m
-[36m@@ -5,33 +6,33 @@[m [mconst cors = require('cors');[m
- const app = express();[m
- const port = 5000;[m
- [m
-[31m-mongoose.connect('mongodb://localhost:27017/todo', { useNewUrlParser: true, useUnifiedTopology: true });[m
-[32m+[m[32mmongoose.connect("mongodb://localhost:27017/todo", { useNewUrlParser: true, useUnifiedTopology: true });[m[41m[m
- [m
- const TodoSchema = new mongoose.Schema({[m
-[31m-  task: String,[m
-[32m+[m[32m  text: String,  // Changed from task to text[m[41m[m
-   completed: Boolean[m
- });[m
- [m
-[31m-const TodoModel = mongoose.model('Todo', TodoSchema);[m
-[32m+[m[32mconst TodoModel = mongoose.model("Todo", TodoSchema);[m[41m[m
- [m
- app.use(cors());[m
- app.use(express.json());[m
- [m
-[31m-app.get('/todos', async (req, res) => {[m
-[32m+[m[32mapp.get("/todos", async (req, res) => {[m[41m[m
-   const todos = await TodoModel.find();[m
-   res.send(todos);[m
- });[m
- [m
-[31m-app.post('/todos', async (req, res) => {[m
-[32m+[m[32mapp.post("/todos", async (req, res) => {[m[41m[m
-   const newTodo = new TodoModel({[m
-[31m-    task: req.body.text,[m
-[32m+[m[32m    text: req.body.text,  // Changed from task to text[m[41m[m
-     completed: false[m
-   });[m
-   const todo = await newTodo.save();[m
-   res.json(todo);[m
- });[m
- [m
-[31m-app.put('/todos/:id', async (req, res) => {[m
-[32m+[m[32mapp.put("/todos/:id", async (req, res) => {[m[41m[m
-   const { id } = req.params;[m
-   const todo = await TodoModel.findById(id);[m
-   todo.completed = !todo.completed;[m
-[36m@@ -39,12 +40,12 @@[m [mapp.put('/todos/:id', async (req, res) => {[m
-   res.json(todo);[m
- });[m
- [m
-[31m-app.delete('/todos/:id', async (req, res) => {[m
-[32m+[m[32mapp.delete("/todos/:id", async (req, res) => {[m[41m[m
-   const { id } = req.params;[m
-   const todo = await TodoModel.findByIdAndDelete(id);[m
-   res.json(todo);[m
- });[m
- [m
- app.listen(port, () => {[m
-[31m-  console.log(`The server is listening on http://localhost:${port}`);[m
-[32m+[m[32m  console.log(`Server is listening on http://localhost:${port}`);[m[41m[m
- });[m
